@@ -13,13 +13,6 @@ class Stats():
         self.backtracker = backtracker
 
     def print_stats(self) -> None:
-        # TEST
-        data = dict()
-
-        data['bytecode'] = ''
-        data['stack'] = self.backtracker.stack
-        data['memory'] = self.backtracker.memory
-        data['storage'] = self.backtracker.storage
 
         with open(self.outfile_path, 'w') as out_json:
             json.dump(data, out_json, indent=4)

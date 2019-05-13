@@ -3,13 +3,11 @@ from common.constants import *
 
 import Stats
 
-import math
-
 class Backtracker():
     def __init__(self, json_data) -> None:
         self.trace = json_data["trace"]
 
-        self.storage_track = list()
+        self.storage_track = set()
 
         self.stats = Stats.Stats(self)
 
@@ -17,12 +15,13 @@ class Backtracker():
     def run(self) -> None:
         for trace in self.trace:
             op = trace["op"]
-            stack = trace["stack"]
+            #stack = trace["stack"]
+            stack = [int(elt,16) for elt in trace["stack"]]
 
             if op == "SSTORE":
-                self.storage_track.append(stack.pop())
+                self.storage_track.add(stack.pop())
             elif op == "SLOAD":
-                self.storage_track.append(stack.pop())
+                self.storage_track.add(stack.pop())
             else:
                 pass
 
@@ -30,4 +29,3 @@ class Backtracker():
         #self.stats.print_stats()
         print(self.storage_track)
 
-    
