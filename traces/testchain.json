@@ -1,3 +1,7 @@
 {
-    "op":[
+    "trace":[
+        {"op":"SSTORE", "stack":[1,2,3,4]},
+        {"op":"PUSH32", "stack":[1,2]},
+        {"op":"SLOAD", "stack":[2,3,4]}
+    ]
 }
