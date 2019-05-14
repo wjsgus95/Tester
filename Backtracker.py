@@ -13,9 +13,9 @@ class Backtracker():
 
     # Replay the whole trace.
     def run(self) -> None:
+        #TODO: track which and when keys are modified
         for trace in self.trace:
             op = trace["op"]
-            #stack = trace["stack"]
             stack = [int(elt,16) for elt in trace["stack"]]
 
             if op == "SSTORE":
