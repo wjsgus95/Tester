@@ -7,23 +7,25 @@ class Backtracker():
     def __init__(self, json_data) -> None:
         self.trace = json_data["trace"]
 
-        self.storage_track = set()
+        self.storage_track = list()
 
         self.stats = Stats.Stats(self)
 
     # Replay the whole trace.
     def run(self) -> None:
         #TODO: track which and when keys are modified
+        idx = 0
         for trace in self.trace:
             op = trace["op"]
             stack = [int(elt,16) for elt in trace["stack"]]
 
             if op == "SSTORE":
-                self.storage_track.add(stack.pop())
+                self.storage_track.append((stack.pop(), idx))
             elif op == "SLOAD":
-                self.storage_track.add(stack.pop())
+                self.storage_track.append((stack.pop(), idx))
             else:
                 pass
+            idx += 1
 
         # Print stats after exeuction.
         #self.stats.print_stats()
