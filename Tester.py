@@ -30,12 +30,25 @@ class Tester():
         with open(json_path) as json_file:
             self.json_data = json.load(json_file)
 
-        #self.evm_driver = Driver.Driver(self.json_data)
-        self.backtracker = Backtracker.Backtracker(self.json_data["trace"])
+        self.evm_driver = Driver.Driver()
+        self.backtracker = Backtracker.Backtracker()
 
     def run(self) -> None:
-        self.backtracker.run()
+        self.evm_driver.init(self.json_data["substate"])
+        trace = self.evm_driver.run()
 
+        self.backtracker = Backtracker.Backtracker(trace)
+        new_substate = self.bactracker.run()
+
+        self.evm_driver.init(new_substate)
+        new_trace = self.evm_driver.run()
+
+        result = self.compare(trace, new_trace)
+        print(f"{result}")
+
+    def compare(self, first_run, second_run) -> bool:
+        validity = bool()
+        return validity
 
 if __name__ == "__main__":
     tester = Tester(args.input_trace)

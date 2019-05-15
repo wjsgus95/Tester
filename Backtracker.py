@@ -4,15 +4,16 @@ from common.constants import *
 import Stats
 
 class Backtracker():
-    def __init__(self, trace) -> None:
-        self.trace = trace
+    def __init__(self) -> None:
+        pass
 
+    def init(self, trace) -> None:
+        self.trace = trace
         self.storage_track = list()
 
-        self.stats = Stats.Stats(self)
-
     # Replay the whole trace.
-    def run(self) -> None:
+    def run(self) -> dict:
+        substate = dict()
         #TODO: track which and when keys are modified
         idx = 0
         for trace in self.trace:
@@ -30,4 +31,5 @@ class Backtracker():
         # Print stats after exeuction.
         #self.stats.print_stats()
         print(self.storage_track)
+        return substate
 
