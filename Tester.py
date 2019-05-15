@@ -2,6 +2,7 @@ from common.constants import *
 from common import opcode_values
 
 import Backtracker
+import Driver
 
 import json
 import math
@@ -29,6 +30,7 @@ class Tester():
         with open(json_path) as json_file:
             self.json_data = json.load(json_file)
 
+        #self.evm_driver = Driver.Driver(self.json_data)
         self.backtracker = Backtracker.Backtracker(self.json_data["trace"])
 
     def run(self) -> None:
