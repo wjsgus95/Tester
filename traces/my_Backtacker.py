@@ -48,7 +48,7 @@ class Backtracker():
 
 		idx += 1
 
-	# Print stats after exeuction.
-# self.stats.print_stats()
-# print(self.storage_track)
+        # Print stats after exeuction.
+        # self.stats.print_stats()
+        # print(self.storage_track)
 

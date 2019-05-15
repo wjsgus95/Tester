@@ -29,7 +29,7 @@ class Tester():
         with open(json_path) as json_file:
             self.json_data = json.load(json_file)
 
-        self.backtracker = Backtracker.Backtracker(self.json_data)
+        self.backtracker = Backtracker.Backtracker(self.json_data["trace"])
 
     def run(self) -> None:
         self.backtracker.run()

@@ -4,8 +4,8 @@ from common.constants import *
 import Stats
 
 class Backtracker():
-    def __init__(self, json_data) -> None:
-        self.trace = json_data["trace"]
+    def __init__(self, trace) -> None:
+        self.trace = trace
 
         self.storage_track = list()
 
