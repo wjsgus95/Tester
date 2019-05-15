@@ -46,7 +46,8 @@ class Tester():
         result = self.compare(trace, new_trace)
         print(f"{result}")
 
-    def compare(self, first_run, second_run) -> bool:
+    # Check if second run result is a subset of first run result.
+    def compare(self, first_state, second_state) -> bool:
         validity = bool()
         return validity
 
