@@ -52,7 +52,8 @@ class Backtracker():
 				pass
 
 
-		idx += 1
+                    idx += 1
+                return self.storage_write_track, self.storage_read_track
 
 	# Print stats after exeuction.
 # self.stats.print_stats()
