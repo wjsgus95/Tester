@@ -1,5 +1,5 @@
 
-PLACEHODLER_JSON = "common/placeholder.json"
+PLACEHOLDER_JSON = "common/placeholder.json"
 
 # Default output file path.
 DEFAULT_OUT_PATH = 'examples/out.json'

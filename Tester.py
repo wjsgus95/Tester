@@ -37,8 +37,8 @@ class Tester():
         self.evm_driver.init(self.json_data["substate"])
         trace = self.evm_driver.run()
 
-        self.backtracker = Backtracker.Backtracker(trace)
-        new_substate = self.bactracker.run()
+        self.backtracker.init(trace)
+        new_substate = self.backtracker.run()
 
         self.evm_driver.init(new_substate)
         new_trace = self.evm_driver.run()
