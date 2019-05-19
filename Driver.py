@@ -46,6 +46,8 @@ class Driver():
                 if stack[i] != '': stack[i] = eval(stack[i])
                 else: stack.pop(i)
 
+        assert len(ops) == len(stacks)
+        # Create list of dictionaries from retrieved operation and stack list.
         for i in range(len(ops)):
             trace_elt = dict(zip(["op", "stack"], [ops[i], stacks[i]]))
             trace.append(trace_elt)
