@@ -34,15 +34,19 @@ class Tester():
         self.backtracker = Backtracker.Backtracker()
 
     def run(self) -> None:
+        # Run EVM with given substate and retrieve trace.
         self.evm_driver.init(self.json_data["substate"])
         trace = self.evm_driver.run()
 
+        # Backtrack starting state from given trace.
         self.backtracker.init(trace)
         new_substate = self.backtracker.run()
 
+        # Run EVM again with generated substate.
         self.evm_driver.init(new_substate)
         new_trace = self.evm_driver.run()
 
+        # Validate the result.
         result = self.compare(trace, new_trace)
         print(f"{result}")
 
