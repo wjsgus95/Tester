@@ -2,7 +2,7 @@
 PLACEHOLDER_JSON = "common/placeholder.json"
 
 # Default output file path.
-DEFAULT_OUT_PATH = 'examples/out.json'
+DEFAULT_OUT_PATH = 'stats.json'
 
 # No operand constant.
 NO_OPERAND = None

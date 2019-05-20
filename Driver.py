@@ -8,8 +8,8 @@ address = "0000000000000000000000000000000000000001"
 
 # EVM Driver
 class Driver():
-    def __init__(self) -> None:
-        pass
+    def __init__(self, stats) -> None:
+        self.stats = stats
 
     def init(self, substate) -> None:
         self.substate = substate
@@ -24,7 +24,7 @@ class Driver():
 
         # Write back placeholder.
         with open(PLACEHOLDER_JSON, 'w') as dump_file:
-            json.dump(self.json_data, dump_file)
+            json.dump(self.json_data, dump_file, indent=4)
 
     def run(self) -> list:
         # Return trace is a list of dicts.

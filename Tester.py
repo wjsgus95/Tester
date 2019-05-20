@@ -3,6 +3,7 @@ from common import opcode_values
 
 import Backtracker
 import Driver
+import Stats
 
 import json
 import math
@@ -30,8 +31,9 @@ class Tester():
         with open(json_path) as json_file:
             self.json_data = json.load(json_file)
 
-        self.evm_driver = Driver.Driver()
-        self.backtracker = Backtracker.Backtracker()
+        self.stats = Stats.Stats()
+        self.backtracker = Backtracker.Backtracker(self.stats)
+        self.evm_driver = Driver.Driver(self.stats)
 
     def run(self) -> None:
         # Run EVM with given substate and retrieve trace.
@@ -50,9 +52,13 @@ class Tester():
         result = self.compare(trace, new_trace)
         print(f"{result}")
 
+        # Print stats to output file.
+        self.stats.print_stats()
+
     # Check if second run result is a subset of first run result.
     def compare(self, first_state, second_state) -> bool:
         validity = bool()
+        # TODO: do validation
         return validity
 
 if __name__ == "__main__":

@@ -3,17 +3,23 @@ from Tester import (
 )
 
 import Backtracker
+import Driver
+
 import json
 
 # Maybe we can produce additional stats later?
 class Stats():
     # Produce stats directly from Backtracker instance.
-    def __init__(self, backtracker) -> None:
+    def __init__(self) -> None:
         self.outfile_path = outfile_path
-        self.backtracker = backtracker
+
+        # Stat dictionary
+        self.stats = dict() 
+
+    def register(key, value) -> None:
+        self.stats[key] = value
 
     def print_stats(self) -> None:
-
         with open(self.outfile_path, 'w') as out_json:
-            json.dump(data, out_json, indent=4)
+            json.dump(self.stats, out_json, indent=4)
 

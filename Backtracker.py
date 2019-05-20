@@ -4,8 +4,8 @@ from common.constants import *
 import Stats
 
 class Backtracker():
-    def __init__(self) -> None:
-        pass
+    def __init__(self, stats) -> None:
+        self.stats = stats
 
     def init(self, trace) -> None:
         self.trace = trace
