@@ -7,29 +7,34 @@ class Backtracker():
     def __init__(self, stats) -> None:
         self.stats = stats
 
-    def init(self, trace) -> None:
+    # Initialize trace and bytecode.
+    def init(self, trace, code) -> None:
         self.trace = trace
-        self.storage_track = list()
+        self.code = code
 
     # Replay the whole trace.
     def run(self) -> dict:
         substate = dict()
-        #TODO: track which and when keys are modified
-        idx = 0
-        for trace in self.trace:
+        substate["code"] = self.code
+        substate["stack"] = []
+        substate["storage"] = dict()
+
+        for i, trace in enumerate(self.trace):
             op = trace["op"]
             stack = [int(elt,16) for elt in trace["stack"]]
 
             if op == "SSTORE":
-                self.storage_track.append((stack.pop(), idx))
+                key = stack.pop()
+                value = stack.pop()
+                # Can directly tell key-value pair with SSTORE.
+                substate["storage"][key] = value
             elif op == "SLOAD":
-                self.storage_track.append((stack.pop(), idx))
+                key = stack.pop()
+                # Top of the stack at next operation is the value that was in the storage.
+                substate["storage"][key] = int(self.trace[i+1]["stack"][-1], 16)
             else:
                 pass
-            idx += 1
 
         # Print stats after exeuction.
-        #self.stats.print_stats()
-        print(self.storage_track)
         return substate
 

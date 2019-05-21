@@ -6,7 +6,6 @@ import Driver
 import Stats
 
 import json
-import math
 import sys
 import argparse
 
@@ -17,7 +16,7 @@ parser = argparse.ArgumentParser(description = \
 # Input file path positional(required) argument.
 parser.add_argument('input_trace', type=str, help='Input JSON trace file')
 # Output file path optional.
-parser.add_argument('--dest', type=str, help=f'Output stats file path, defaults to {DEFAULT_OUT_PATH}',
+parser.add_argument('--dest', type=str, help=f"Output stats file path, defaults to {DEFAULT_OUT_PATH}",
                     nargs=1, default=DEFAULT_OUT_PATH)
 args = parser.parse_args()
 
@@ -37,11 +36,12 @@ class Tester():
 
     def run(self) -> None:
         # Run EVM with given substate and retrieve trace.
-        self.evm_driver.init(self.json_data["substate"])
+        substate = self.json_data["substate"]
+        self.evm_driver.init(substate)
         trace = self.evm_driver.run()
 
         # Backtrack starting state from given trace.
-        self.backtracker.init(trace)
+        self.backtracker.init(trace, substate["code"])
         new_substate = self.backtracker.run()
 
         # Run EVM again with generated substate.
@@ -49,16 +49,25 @@ class Tester():
         new_trace = self.evm_driver.run()
 
         # Validate the result.
-        result = self.compare(trace, new_trace)
+        result = self.compare(substate, new_substate)
         print(f"{result}")
 
         # Print stats to output file.
         self.stats.print_stats()
 
-    # Check if second run result is a subset of first run result.
-    def compare(self, first_state, second_state) -> bool:
+    def compare(self, given_state, backtracked_state) -> bool:
         validity = bool()
-        # TODO: do validation
+
+        given_state_ = dict()
+        given_state_["code"] = given_state["code"]
+        given_state_["stack"] = given_state["stack"]
+        given_state_["storage"] = dict()
+        for k, v in given_state["storage"].items() :
+            given_state_["storage"][eval(k)] = eval(v)
+
+        # Check if second run result is a subset of first run result.
+        validity = backtracked_state["storage"].items() <= given_state_["storage"].items()
+
         return validity
 
 if __name__ == "__main__":
