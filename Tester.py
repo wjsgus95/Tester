@@ -49,25 +49,26 @@ class Tester():
         new_trace = self.evm_driver.run()
 
         # Validate the result.
-        result = self.compare(substate, new_substate)
+        result = self.compare(trace, new_trace)
         print(f"{result}")
 
         # Print stats to output file.
         self.stats.print_stats()
 
-    def compare(self, given_state, backtracked_state) -> bool:
-        validity = bool()
+    def compare(self, trace, new_trace) -> bool:
+        validity = True
 
-        given_state_ = dict()
-        given_state_["code"] = given_state["code"]
-        given_state_["stack"] = given_state["stack"]
-        given_state_["storage"] = dict()
-        for k, v in given_state["storage"].items() :
-            given_state_["storage"][eval(k)] = eval(v)
+        for m_trace, m_new_trace in zip(trace, new_trace):
+            op, new_op = m_trace["op"], m_new_trace["op"]
+            stack, new_stack = [int(elt,16) for elt in m_trace["stack"]], [int(elt,16) for elt in m_new_trace["stack"]]
+            # Reverse the stacks.
+            stack, new_stack = stack[::-1], new_stack[::-1]
 
-        # Check if second run result is a subset of first run result.
-        validity = backtracked_state["storage"].items() <= given_state_["storage"].items()
-
+            validity = (op == new_op) and validity
+            #validate if top len(new_stack) elements are positioned the same. Just like Tower of Hanoi.
+            for i in range(len(new_stack)):
+                validity = (stack[i] == new_stack[i]) and validity
+            
         return validity
 
 if __name__ == "__main__":
