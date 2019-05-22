@@ -1,0 +1,3 @@
+[submodule "evmcodegen"]
+	path = evmcodegen
+	url = https://github.com/ethereum/evmcodegen.git

@@ -51,5 +51,7 @@ class Driver():
         for i in range(len(ops)):
             trace_elt = dict(zip(["op", "stack"], [ops[i], stacks[i]]))
             trace.append(trace_elt)
+        print(trace)
+        print(trace)
         return trace 
 
