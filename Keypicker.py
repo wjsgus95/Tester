@@ -39,6 +39,7 @@ class Keypicker():
         substate = self.json_data["substate"]
         self.evm_driver.init(substate)
         trace = self.evm_driver.run()
+        print(trace)
 
         # Backtrack starting state from given trace.
         self.backtracker.init(trace, substate["code"])
@@ -47,6 +48,7 @@ class Keypicker():
         # Run EVM again with generated substate.
         self.evm_driver.init(new_substate)
         new_trace = self.evm_driver.run()
+        print();print(new_trace)
 
         # Validate the result.
         result = self.compare(trace, new_trace)
