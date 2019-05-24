@@ -1,7 +1,15 @@
 # Tester
 
 
+## Setup
+
+python3 evmcodegen/setup.py install
+
 
 ## Usage
 
-python3 Keypicker.py --help
+Help: python3 Keypicker.py --help
+
+Run: python3 Keypicker.py [input trace]
+
+Fuzzing: python3 validate.py
