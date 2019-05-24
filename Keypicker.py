@@ -67,7 +67,7 @@ class Keypicker():
             stack, new_stack = stack[::-1], new_stack[::-1]
 
             validity = (op == new_op) and validity
-            #validate if top len(new_stack) elements are positioned the same. Just like Tower of Hanoi.
+            # Validate if top len(new_stack) elements are positioned the same. Just like Tower of Hanoi.
             for i in range(len(new_stack)):
                 validity = (stack[i] == new_stack[i]) and validity
             

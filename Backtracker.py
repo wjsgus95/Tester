@@ -35,6 +35,5 @@ class Backtracker():
             else:
                 pass
 
-        # Print stats after exeuction.
         return substate
 
