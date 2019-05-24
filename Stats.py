@@ -1,6 +1,6 @@
-from Keypicker import (
-    outfile_path
-)
+#from Keypicker import (
+#    outfile_path
+#)
 
 import Backtracker
 import Driver
@@ -11,7 +11,7 @@ import json
 class Stats():
     # Produce stats directly from Backtracker instance.
     def __init__(self) -> None:
-        self.outfile_path = outfile_path
+        #self.outfile_path = outfile_path
 
         # Stat dictionary
         self.stats = dict() 
@@ -20,6 +20,7 @@ class Stats():
         self.stats[key] = value
 
     def print_stats(self) -> None:
-        with open(self.outfile_path, 'w') as out_json:
-            json.dump(self.stats, out_json, indent=4)
+        #with open(self.outfile_path, 'w') as out_json:
+        #    json.dump(self.stats, out_json, indent=4)
+        pass
 

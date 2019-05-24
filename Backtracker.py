@@ -27,11 +27,11 @@ class Backtracker():
                 key = stack.pop()
                 value = stack.pop()
                 # Can directly tell key-value pair with SSTORE.
-                substate["storage"][key] = value
+                substate["storage"][key] = str(value)
             elif op == "SLOAD":
                 key = stack.pop()
                 # Top of the stack at next operation is the value that was in the storage.
-                substate["storage"][key] = int(self.trace[i+1]["stack"][-1], 16)
+                substate["storage"][key] = str(int(self.trace[i+1]["stack"][-1], 16))
             else:
                 pass
 

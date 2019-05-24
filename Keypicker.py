@@ -16,12 +16,12 @@ parser = argparse.ArgumentParser(description = \
 # Input file path positional(required) argument.
 parser.add_argument('input_trace', type=str, help='Input JSON trace file')
 # Output file path optional.
-parser.add_argument('--dest', type=str, help=f"Output stats file path, defaults to {DEFAULT_OUT_PATH}",
-                    nargs=1, default=DEFAULT_OUT_PATH)
+#parser.add_argument('--dest', type=str, help=f"Output stats file path, defaults to {DEFAULT_OUT_PATH}",
+                    #nargs=1, default=DEFAULT_OUT_PATH)
 args = parser.parse_args()
 
 # Will override output file path if any given.
-outfile_path = args.dest if type(args.dest) == str else args.dest[0]
+#outfile_path = args.dest if type(args.dest) == str else args.dest[0]
 
 
 class Keypicker():
@@ -39,7 +39,6 @@ class Keypicker():
         substate = self.json_data["substate"]
         self.evm_driver.init(substate)
         trace = self.evm_driver.run()
-        print(trace)
 
         # Backtrack starting state from given trace.
         self.backtracker.init(trace, substate["code"])
@@ -48,11 +47,10 @@ class Keypicker():
         # Run EVM again with generated substate.
         self.evm_driver.init(new_substate)
         new_trace = self.evm_driver.run()
-        print();print(new_trace)
 
         # Validate the result.
         result = self.compare(trace, new_trace)
-        print(f"{result}")
+        print(f"Compare result = {result}")
 
         # Print stats to output file.
         self.stats.print_stats()
