@@ -19,7 +19,6 @@ for i in range(1000):
     cmd = f"python3 Keypicker.py traces/trace{str(i).zfill(3)}.json".split()
     result = subprocess.check_output(cmd).decode()
 
-    print(f"trace number: {i}")
+    print(f"trace number: [{i+1}/1000]")
     print(result)
-    print()
 
